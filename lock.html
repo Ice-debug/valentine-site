@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>For You 💌</h1>
+
+<p>Enter the secret PIN</p>
+
+<input id="pin" placeholder="PIN"
+style="padding:12px;border-radius:10px;border:none;width:70%;margin-bottom:10px;">
+
+<br>
+
+<button class="yes" onclick="unlock()">Unlock</button>
+
+<p id="msg"></p>
+
+</div>
+
+<script>
+
+function unlock(){
+
+if(document.getElementById('pin').value==="143"){
+
+window.location="index.html";
+
+}else{
+
+document.getElementById('msg').innerText="Wrong PIN 🙂";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
