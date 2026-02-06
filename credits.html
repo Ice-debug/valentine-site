@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Credits 💖</title>
+  <style>
+    /* full-screen cinematic credits */
+    .credits-wrap{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      padding:18px;
+      background:
+        radial-gradient(900px 500px at 50% 20%, rgba(255,77,141,.18), transparent 60%),
+        linear-gradient(180deg,#020617 0%, #0f172a 60%, #020617 100%);
+      overflow:hidden;
+    }
+
+    .credits-card{
+      width: min(560px, 92vw);
+      border-radius: 22px;
+      background: rgba(255,255,255,.05);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 18px;
+    }
+
+    .screen{
+      position:relative;
+      height: 70vh;
+      overflow:hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+    }
+
+    .fade-top, .fade-bottom{
+      position:absolute; left:0; right:0;
+      height: 18%;
+      z-index: 2;
+      pointer-events:none;
+    }
+    .fade-top{
+      top:0;
+      background: linear-gradient(180deg, rgba(2,6,23,1), rgba(2,6,23,0));
+    }
+    .fade-bottom{
+      bottom:0;
+      background: linear-gradient(0deg, rgba(2,6,23,1), rgba(2,6,23,0));
+    }
+
+    .roll{
+      position:absolute;
+      left:0; right:0;
+      bottom:-120%;
+      padding: 34px 18px 60px;
+      text-align:center;
+      animation: rollUp 38s linear forwards;
+    }
+
+    @keyframes rollUp{
+      from{ transform: translateY(0); }
+      to{ transform: translateY(-220%); }
+    }
+
+    .roll h1{
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      margin: 6px 0 12px;
+    }
+    .roll h2{
+      margin: 22px 0 8px;
+      font-size: 16px;
+      letter-spacing: .2px;
+      opacity: .95;
+    }
+    .roll p{
+      margin: 0 0 10px;
+      opacity:.82;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .photo-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0 4px;
+    }
+
+    .photo-grid img{
+      width:100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .tiny{
+      font-size: 12.5px;
+      opacity:.72;
+      margin-top: 10px;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin-top: 14px;
+      flex-wrap:wrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="credits-wrap">
+    <div class="credits-card">
+      <div class="screen">
+        <div class="fade-top"></div>
+        <div class="fade-bottom"></div>
+
+        <div class="roll">
+          <h1>The End…? 💗</h1>
+          <p>Thank you for being the best part of my days.</p>
+
+          <h2>Starring</h2>
+          <p><strong>You</strong> — my favorite person</p>
+
+          <h2>Also Starring</h2>
+          <p><strong>Me</strong> — trying my best to impress you 😄</p>
+
+          <h2>Special Thanks</h2>
+          <p>Your smile, your laugh, and every little moment with you.</p>
+
+          <h2>Photo Highlights</h2>
+          <div class="photo-grid">
+            <img src="assets/pic1.jpg" alt="pic 1">
+            <img src="assets/pic2.jpg" alt="pic 2">
+            <img src="assets/pic3.jpg" alt="pic 3">
+            <img src="assets/pic4.jpg" alt="pic 4">
+          </div>
+          <p class="tiny">Replace pic1.jpg…pic4.jpg with your real photos in /assets.</p>
+
+          <h2>Final Line</h2>
+          <p>If you’re still watching… I love you 💞</p>
+          <p class="tiny">— roll credits complete —</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="yes" onclick="restart()">Replay ↺</button>
+        <button class="no" onclick="skip()">Skip</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function restart(){ window.location.href="index.html"; }
+    function skip(){ window.location.href="index.html"; }
+  </script>
+</body>
+</html>
