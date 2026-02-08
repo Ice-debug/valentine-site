@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>YAY!!! 🎉</title>
 </head>
 
-<body onload="confetti()">
+<body>
+  <div class="card">
+    <h1>YAY!!! 🎉</h1>
 
-<div class="card">
+    <p>
+      Valentine status: confirmed 💞<br><br>
+      📍 Your restaurant<br>
+      🕖 7:00 PM<br>
+      ✨ Dress cute
+    </p>
 
-<h1>YAY!!! 🎉</h1>
+    <button class="yes" onclick="location.href='credits.html'">
+      Roll credits 🎬
+    </button>
+  </div>
 
-<p>
-Get ready for a date ❤️<br><br>
-
-📍 Your restaurant<br>
-🕖 7:00 PM<br>
-✨ Dress cute
-</p>
-
-<button class="yes" onclick="location.href='credits.html'">
-Roll credits 🎬
-</button>
-
-</div>
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
+  <script>
+    // IMPORTANT: We do NOT startHearts() here.
+    // We start continuous image rain instead.
+    startImageRain("assets/love.png", {
+      spawnRateMs: 160,   // lower = more intense
+      minSize: 22,
+      maxSize: 46
+    });
+  </script>
 </body>
 </html>
