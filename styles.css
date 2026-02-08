@@ -1,103 +1,123 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@600&display=swap');
 
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
+*{ box-sizing:border-box; margin:0; padding:0; }
 
 body{
-font-family:Inter, sans-serif;
-background:linear-gradient(160deg,#0f172a,#020617);
-color:white;
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
+  font-family: Inter, sans-serif;
+  background: linear-gradient(160deg,#0f172a,#020617);
+  color: white;
+  min-height: 100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
 }
 
-/* floating hearts */
+.card{
+  width: 90%;
+  max-width: 520px;
+  padding: 32px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(12px);
+  text-align:center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  border: 1px solid rgba(255,255,255,.10);
+}
 
+h1{
+  font-family: "Playfair Display", serif;
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+p{
+  opacity: .86;
+  margin-bottom: 18px;
+  line-height: 1.45;
+}
+
+img.media{
+  width: 100%;
+  border-radius: 16px;
+  margin: 18px 0;
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+button{
+  border:none;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  margin: 8px;
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.yes{
+  background: linear-gradient(135deg,#ff4d8d,#7c5cff);
+  color: white;
+}
+
+.no{
+  background: rgba(255,255,255,.08);
+  color: white;
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+input{
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.25);
+  color: white;
+  width: 75%;
+  outline: none;
+}
+
+.small{
+  font-size: 13px;
+  opacity: .7;
+  margin-top: 10px;
+}
+
+.music{
+  margin-top: 14px;
+  font-size: 14px;
+  opacity: .85;
+  cursor: pointer;
+  user-select:none;
+}
+
+/* Floating hearts (used on most pages) */
 .heart{
-position:absolute;
-width:14px;
-height:14px;
-background:#ff4d8d;
-transform:rotate(45deg);
-animation:float 6s linear infinite;
-opacity:.6;
+  position:absolute;
+  width:14px;
+  height:14px;
+  background:#ff4d8d;
+  transform: rotate(45deg);
+  animation: float 7s linear forwards;
+  opacity: .55;
+  pointer-events:none;
+  z-index: 0;
 }
 
 .heart:before,
 .heart:after{
-content:'';
-position:absolute;
-width:14px;
-height:14px;
-background:#ff4d8d;
-border-radius:50%;
+  content:'';
+  position:absolute;
+  width:14px;
+  height:14px;
+  background:#ff4d8d;
+  border-radius:50%;
 }
 
-.heart:before{top:-7px;}
-.heart:after{left:-7px;}
+.heart:before{ top:-7px; }
+.heart:after{ left:-7px; }
 
 @keyframes float{
-0%{transform:translateY(100vh) rotate(45deg);}
-100%{transform:translateY(-10vh) rotate(45deg);}
-}
-
-.card{
-width:90%;
-max-width:520px;
-padding:32px;
-border-radius:24px;
-background:rgba(255,255,255,.05);
-backdrop-filter:blur(12px);
-text-align:center;
-box-shadow:0 20px 60px rgba(0,0,0,.5);
-}
-
-h1{
-font-family:'Playfair Display', serif;
-font-size:30px;
-margin-bottom:12px;
-}
-
-p{
-opacity:.85;
-margin-bottom:20px;
-}
-
-img{
-width:100%;
-border-radius:16px;
-margin:18px 0;
-}
-
-button{
-border:none;
-padding:14px 22px;
-border-radius:14px;
-font-weight:700;
-cursor:pointer;
-margin:8px;
-font-size:16px;
-}
-
-.yes{
-background:linear-gradient(135deg,#ff4d8d,#7c5cff);
-color:white;
-}
-
-.no{
-background:#222;
-color:white;
-}
-
-.music{
-margin-top:14px;
-font-size:14px;
-opacity:.8;
-cursor:pointer;
+  0%{ transform: translateY(105vh) rotate(45deg); opacity: 0; }
+  10%{ opacity: .55; }
+  100%{ transform: translateY(-15vh) rotate(45deg); opacity: 0; }
 }
