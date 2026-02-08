@@ -1,85 +1,150 @@
-// floating hearts
-setInterval(()=>{
+// --------------------
+// Floating hearts (optional)
+// --------------------
+let heartsTimer = null;
 
-const heart=document.createElement('div');
-heart.className='heart';
-heart.style.left=Math.random()*100+'vw';
-heart.style.animationDuration=(4+Math.random()*4)+'s';
+function startHearts(rateMs = 650){
+  stopHearts();
+  heartsTimer = setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (5 + Math.random() * 6) + 's';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 12000);
+  }, rateMs);
 
-document.body.appendChild(heart);
+  // small initial burst
+  for(let i=0;i<8;i++){
+    setTimeout(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (5 + Math.random() * 6) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 12000);
+    }, i * 120);
+  }
+}
 
-setTimeout(()=>heart.remove(),8000);
+function stopHearts(){
+  if (heartsTimer) clearInterval(heartsTimer);
+  heartsTimer = null;
+}
 
-},500);
-
-
-// playful NO button
+// --------------------
+// Playful NO button dodge
+// --------------------
 function dodge(btn){
+  if(!btn) return;
+  btn.style.position = 'relative';
 
-btn.style.position='relative';
+  const move = () => {
+    const x = (Math.random() * 200) - 100;
+    const y = (Math.random() * 120) - 60;
+    btn.style.transform = `translate(${x}px, ${y}px)`;
+  };
 
-btn.addEventListener('mouseover',move);
-btn.addEventListener('touchstart',move);
-
-function move(){
-
-const x=(Math.random()*200)-100;
-const y=(Math.random()*120)-60;
-
-btn.style.transform=`translate(${x}px,${y}px)`;
+  btn.addEventListener('mouseover', move);
+  btn.addEventListener('touchstart', move, { passive: true });
 }
 
+// --------------------
+// Music toggle (iPhone-safe: user taps)
+// --------------------
+function musicToggle(audioId = 'music', buttonId = 'musicBtn'){
+  const audio = document.getElementById(audioId);
+  const btn = document.getElementById(buttonId);
+  if(!audio || !btn) return;
+
+  // restore last state
+  const saved = localStorage.getItem("val_music") || "off";
+  if(saved === "on"){
+    btn.innerText = '🔊 Music On (tap)';
+  } else {
+    btn.innerText = '🔈 Music Off (tap)';
+  }
+
+  btn.onclick = async () => {
+    try{
+      if(audio.paused){
+        await audio.play();
+        localStorage.setItem("val_music","on");
+        btn.innerText = '🔊 Music On';
+      } else {
+        audio.pause();
+        localStorage.setItem("val_music","off");
+        btn.innerText = '🔈 Music Off';
+      }
+    } catch {
+      // Safari sometimes needs a second tap
+      btn.innerText = '🔊 Tap again';
+    }
+  };
 }
 
-// confetti
-function confetti(){
+// --------------------
+// Continuous custom image rain (YES page)
+// --------------------
+let rainTimer = null;
 
-for(let i=0;i<120;i++){
+function startImageRain(imageSrc, {
+  spawnRateMs = 180,    // lower = more intense
+  minSize = 22,
+  maxSize = 44,
+  minSpeed = 1.6,
+  maxSpeed = 3.8,
+  drift = 1.2
+} = {}){
+  stopImageRain();
 
-const c=document.createElement('div');
+  const spawnOne = () => {
+    const img = document.createElement('img');
+    img.src = imageSrc;
 
-c.style.position='fixed';
-c.style.width='8px';
-c.style.height='8px';
-c.style.background=`hsl(${Math.random()*360},100%,60%)`;
-c.style.left=Math.random()*100+'vw';
-c.style.top='-10px';
-c.style.opacity='.8';
-c.style.borderRadius='2px';
+    const size = minSize + Math.random() * (maxSize - minSize);
+    img.style.position = 'fixed';
+    img.style.width = size + 'px';
+    img.style.height = 'auto';
+    img.style.pointerEvents = 'none';
+    img.style.left = (Math.random() * 100) + 'vw';
+    img.style.top = (-60 - Math.random() * 120) + 'px';
+    img.style.zIndex = '999';
 
-document.body.appendChild(c);
+    // slight rotation / glow feels premium
+    img.style.transform = `rotate(${(Math.random()*30)-15}deg)`;
+    img.style.filter = 'drop-shadow(0 10px 18px rgba(0,0,0,.35))';
 
-let fall=setInterval(()=>{
+    document.body.appendChild(img);
 
-c.style.top=parseFloat(c.style.top)+5+'px';
+    const speed = minSpeed + Math.random() * (maxSpeed - minSpeed);
+    const side = ((Math.random()*2)-1) * drift;
 
-if(parseFloat(c.style.top)>window.innerHeight){
-c.remove();
-clearInterval(fall);
+    let y = parseFloat(img.style.top);
+    let x = parseFloat(img.style.left);
+
+    const tick = setInterval(() => {
+      y += speed * 4;      // multiplier for smooth speed
+      x += side;
+
+      img.style.top = y + 'px';
+      img.style.left = x + 'vw';
+
+      if (y > window.innerHeight + 80) {
+        clearInterval(tick);
+        img.remove();
+      }
+    }, 16);
+  };
+
+  // initial burst
+  for(let i=0;i<18;i++) setTimeout(spawnOne, i*60);
+
+  // continuous spawn
+  rainTimer = setInterval(spawnOne, spawnRateMs);
 }
 
-},20);
-
-}
-
-}
-
-// music toggle
-function musicToggle(){
-
-const audio=document.getElementById('music');
-
-document.getElementById('musicBtn')
-.onclick=()=>{
-
-if(audio.paused){
-audio.play();
-document.getElementById('musicBtn').innerText='🔊 Music On';
-}else{
-audio.pause();
-document.getElementById('musicBtn').innerText='🔈 Music Off';
-}
-
-}
-
+function stopImageRain(){
+  if(rainTimer) clearInterval(rainTimer);
+  rainTimer = null;
 }
