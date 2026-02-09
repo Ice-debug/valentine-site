@@ -1,36 +1,161 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>YAY!!! 🎉</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>You Said Yes ❤️</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    background: linear-gradient(135deg,#ff758c,#ff7eb3);
+    overflow:hidden;
+    font-family: 'Arial', sans-serif;
+    text-align:center;
+    color:white;
+}
+
+/* Main Content */
+.container{
+    position:relative;
+    z-index:5;
+    padding-top:80px;
+}
+
+h1{
+    font-size:48px;
+    animation:fadeIn 2s ease;
+}
+
+p{
+    font-size:22px;
+    margin-top:-10px;
+}
+
+/* Floating Image Rain */
+.photo{
+    position:absolute;
+    top:-150px;
+    width:90px;
+    border-radius:18px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(120vh) rotate(360deg);
+        opacity:0.9;
+    }
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* Map Styling */
+.map-container{
+    margin-top:40px;
+}
+
+iframe{
+    width:90%;
+    height:300px;
+    border:none;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.35);
+}
+
+/* Button */
+button{
+    padding:14px 26px;
+    border:none;
+    border-radius:12px;
+    background:#ff4d6d;
+    color:white;
+    font-size:18px;
+    margin-top:18px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+</style>
 </head>
 
 <body>
-  <div class="card">
-    <h1>YAY!!! 🎉</h1>
 
-    <p>
-      Valentine status: confirmed 💞<br><br>
-      📍 Your restaurant<br>
-      🕖 7:00 PM<br>
-      ✨ Dress cute
-    </p>
+<div class="container">
 
-    <button class="yes" onclick="location.href='credits.html'">
-      Roll credits 🎬
-    </button>
-  </div>
+<h1>YOU SAID YES!!! ❤️</h1>
 
-  <script src="script.js"></script>
-  <script>
-    // IMPORTANT: We do NOT startHearts() here.
-    // We start continuous image rain instead.
-    startImageRain("assets/love.png", {
-      spawnRateMs: 160,   // lower = more intense
-      minSize: 22,
-      maxSize: 46
-    });
-  </script>
+<p>
+Best decision you’ve ever made 😌  
+Now get ready for a beautiful night.
+</p>
+
+
+<!-- LOCATION -->
+<div class="map-container">
+
+<h2>📍 Our Valentine’s Date</h2>
+
+<iframe
+src="https://www.google.com/maps?q=Caf%C3%A9%20Lunette%20Halifax&output=embed">
+</iframe>
+
+<br>
+
+<a href="https://maps.app.goo.gl/sdXjKpVEnXf5FcTB8" target="_blank">
+<button>Open in Google Maps</button>
+</a>
+
+<p style="margin-top:12px;">
+Dress cute… I already made plans 😉
+</p>
+
+</div>
+
+</div>
+
+
+<!-- PHOTO RAIN SCRIPT -->
+<script>
+
+const images = [
+"assets/love.png",
+"assets/pic1.png",
+"assets/pic2.png",
+"assets/pic3.png",
+"assets/pic4.png"
+];
+
+function createPhoto(){
+
+    const photo = document.createElement("img");
+    photo.src = images[Math.floor(Math.random()*images.length)];
+    photo.classList.add("photo");
+
+    photo.style.left = Math.random()*100 + "vw";
+    photo.style.animationDuration = (4 + Math.random()*4) + "s";
+
+    document.body.appendChild(photo);
+
+    setTimeout(()=>{
+        photo.remove();
+    },8000);
+}
+
+/* Continuous spawn */
+setInterval(createPhoto, 350);
+
+</script>
+
 </body>
 </html>
